@@ -40,8 +40,8 @@ const OrdersPage = ({ orders, setOrders }) => {
       {orders.length === 0 ? (
         <div className="empty-state">
           <ShoppingCart size={64} />
-          <p>No orders yet</p>
-          <a href="/" className="btn-checkout">Start Shopping</a>
+          <p style={{paddingBottom: '50px' }}>No orders yet</p>
+          <a href="/" className="btn-checkout"  >Start Shopping</a>
         </div>
       ) : (
         <div className="orders-list">

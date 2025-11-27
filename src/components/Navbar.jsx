@@ -12,6 +12,7 @@ const Navbar = ({ cartCount, isLoggedIn, onLogout }) => (
       <div className="nav-links">
         <Link to="/">Products</Link>
         <Link to="/reports">Reports</Link>
+        <Link to="/orders">Orders</Link>
         <Link to="/cart" className="cart-link">
           <ShoppingCart size={20} />
           {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}

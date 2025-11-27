@@ -83,13 +83,7 @@ const ReportsPage = () => {
 
           {/* Result Display */}
           {spendingResult !== null && (
-             <div style={{
-               marginTop: '15px', 
-               padding: '10px', 
-               backgroundColor: '#e8f5e9', 
-               borderLeft: '5px solid #4caf50',
-               color: '#333'
-             }}>
+             <div style={{marginTop: '15px', padding: '10px', backgroundColor: '#e8f5e9', borderLeft: '5px solid #4caf50',color: '#333'}}>
                <strong>Total Spent:</strong> ${spendingResult}
              </div>
           )}

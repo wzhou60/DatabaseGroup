@@ -13,14 +13,15 @@ const ReportsPage = () => {
 
   const checkStock = async () => {
     try {
-      console.log("clicked");
+      //console.log("clicked");
       const response = await fetch('http://localhost:5000/api/reports/check-stock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ basketId })
       });
       const data = await response.json();
-      setStockResult(data.message);
+      console.log("Server Response:", data);
+      setStockResult(data.stockStatus);
     } catch (err) {
       alert("Error connecting to server");
       console.error(err);
@@ -29,14 +30,14 @@ const ReportsPage = () => {
 
   const checkSpending = async () => {
     try {
-      console.log("clicked");
+      //console.log("clicked");
       const response = await fetch('http://localhost:5000/api/reports/shopper-total', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ shopperId })
       });
       const data = await response.json();
-      setSpendingResult(data.total);
+      setSpendingResult(data.totalSpent);
     } catch (err) {
       alert("Error connecting to server");
       console.error(err);
@@ -58,7 +59,6 @@ const ReportsPage = () => {
           />
           {/* Call the new function */}
           <button onClick={checkStock} className="btn-report">Check Inventory</button>
-          {stockResult && <p className="result-text"><strong>Result:</strong> {stockResult}</p>}
           
           {/* DISPLAY RESULT */}
           {stockResult && (

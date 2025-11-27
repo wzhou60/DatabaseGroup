@@ -80,7 +80,19 @@ const ReportsPage = () => {
           />
           {/* Call the new function */}
           <button onClick={checkSpending} className="btn-report">View Report</button>
-          {spendingResult !== null && <p className="result-text"><strong>Total Spent:</strong> ${spendingResult}</p>}
+
+          {/* Result Display */}
+          {spendingResult !== null && (
+             <div style={{
+               marginTop: '15px', 
+               padding: '10px', 
+               backgroundColor: '#e8f5e9', 
+               borderLeft: '5px solid #4caf50',
+               color: '#333'
+             }}>
+               <strong>Total Spent:</strong> ${spendingResult}
+             </div>
+          )}
         </div>
       </div>
     </div>

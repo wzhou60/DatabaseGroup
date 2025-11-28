@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Coffee, ShoppingCart } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Coffee, ShoppingCart } from "lucide-react";
 
 const Navbar = ({ cartCount, isLoggedIn, onLogout }) => (
   <nav className="navbar">
@@ -13,14 +13,24 @@ const Navbar = ({ cartCount, isLoggedIn, onLogout }) => (
         <Link to="/">Products</Link>
         <Link to="/reports">Reports</Link>
         <Link to="/orders">Orders</Link>
+
+        {/* New Admin Link */}
+        <Link to="/admin" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+          Admin
+        </Link>
+
         <Link to="/cart" className="cart-link">
           <ShoppingCart size={20} />
           {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
         </Link>
         {isLoggedIn ? (
-          <button onClick={onLogout} className="btn-logout">Logout</button>
+          <button onClick={onLogout} className="btn-logout">
+            Logout
+          </button>
         ) : (
-          <Link to="/login" className="btn-login">Login</Link>
+          <Link to="/login" className="btn-login">
+            Login
+          </Link>
         )}
       </div>
     </div>

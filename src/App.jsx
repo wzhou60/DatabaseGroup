@@ -8,7 +8,7 @@ import Register from './pages/Register.jsx';
 import Navbar from './components/Navbar.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
-import { Coffee, ShoppingCart, BarChart3, LogIn } from 'lucide-react'; 
+import AdminPage from './pages/AdminPage.jsx'; 
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -33,6 +33,9 @@ function App() {
           <Route path="/reports" element={<ReportsPage />} />
           <Route path="/login" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/orders" element={<OrdersPage orders={orders} setOrders={setOrders} />} />
+
+          <Route path="/admin" element={<AdminPage />} />
+          
           <Route path="/checkout" element={
             <CheckoutPage
               cart={cart}

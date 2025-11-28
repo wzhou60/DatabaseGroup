@@ -42,7 +42,7 @@ function App() {
               isLoggedIn={isLoggedIn}
             />}
           />
-        </Routes> 
+        </Routes>
       </div>
     </BrowserRouter>
   );

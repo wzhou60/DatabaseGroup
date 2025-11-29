@@ -1,0 +1,86 @@
+.admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #4a3b32;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6f4e37;
+  font-size: 1.1rem;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card input, .card select {
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.card .row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card .row input {
+  width: 100%;
+}
+
+.card button {
+  background-color: #6f4e37;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.card button:hover {
+  background-color: #5a3d2b;
+}
+
+.result {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #000000;
+  border-left: 4px solid #6f4e37;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.result.highlight {
+  background-color: #c4edc8;
+  border-left-color: #0b8d11;
+  font-weight: bold;
+  color: #000000;
+}

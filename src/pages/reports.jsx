@@ -6,6 +6,44 @@ const ReportsPage = () => {
   const [basketId, setBasketId] = useState('');
   const [shopperId, setShopperId] = useState('');
 
+
+  // New state for results
+  const [stockResult, setStockResult] = useState('');
+  const [spendingResult, setSpendingResult] = useState(null);
+
+  const checkStock = async () => {
+    try {
+      //console.log("clicked");
+      const response = await fetch('http://localhost:5000/api/reports/check-stock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ basketId })
+      });
+      const data = await response.json();
+      console.log("Server Response:", data);
+      setStockResult(data.stockStatus);
+    } catch (err) {
+      alert("Error connecting to server");
+      console.error(err);
+    }
+  };
+
+  const checkSpending = async () => {
+    try {
+      //console.log("clicked");
+      const response = await fetch('http://localhost:5000/api/reports/shopper-total', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ shopperId })
+      });
+      const data = await response.json();
+      setSpendingResult(data.totalSpent);
+    } catch (err) {
+      alert("Error connecting to server");
+      console.error(err);
+    }
+  };
+
   return (
     <div className="page">
       <h1>Reports Dashboard</h1>
@@ -19,8 +57,16 @@ const ReportsPage = () => {
             onChange={(e) => setBasketId(e.target.value)}
             className="report-input"
           />
-          <button className="btn-report">Check Inventory</button>
-          <p className="report-info">Verify if all items are in stock</p>
+          {/* Call the new function */}
+          <button onClick={checkStock} className="btn-report">Check Inventory</button>
+          
+          {/* DISPLAY RESULT */}
+          {stockResult && (
+            <div style={{marginTop: '15px', padding: '10px', background: '#f0f0f0', borderRadius: '4px'}}>
+              <strong>Database Result:</strong> {stockResult}
+            </div>
+          )}
+
         </div>
         
         <div className="report-card">
@@ -32,8 +78,15 @@ const ReportsPage = () => {
             onChange={(e) => setShopperId(e.target.value)}
             className="report-input"
           />
-          <button className="btn-report">View Report</button>
-          <p className="report-info">View total purchases by shopper</p>
+          {/* Call the new function */}
+          <button onClick={checkSpending} className="btn-report">View Report</button>
+
+          {/* Result Display */}
+          {spendingResult !== null && (
+             <div style={{marginTop: '15px', padding: '10px', backgroundColor: '#e8f5e9', borderLeft: '5px solid #4caf50',color: '#333'}}>
+               <strong>Total Spent:</strong> ${spendingResult}
+             </div>
+          )}
         </div>
       </div>
     </div>

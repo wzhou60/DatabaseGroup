@@ -1,0 +1,147 @@
+DESC BB_BASKET;
+DESC BB_BASKETITEM;
+DESC BB_BASKETSTATUS;
+DESC BB_DEPARTMENT;
+DESC BB_PROD_SALES;
+DESC BB_PRODUCT;
+DESC BB_PRODUCTOPTION;
+DESC BB_SHIPPING;
+DESC BB_SHOP_SALES;
+DESC BB_SHOPPER;
+DESC BB_TAX;
+
+
+Name          Null?    Type         
+------------- -------- ------------ 
+IDBASKET      NOT NULL NUMBER(5)    
+QUANTITY               NUMBER(2)    
+IDSHOPPER              NUMBER(4)    
+ORDERPLACED            NUMBER(1)    
+SUBTOTAL               NUMBER(7,2)  
+TOTAL                  NUMBER(7,2)  
+SHIPPING               NUMBER(5,2)  
+TAX                    NUMBER(5,2)  
+DTCREATED              DATE         
+PROMO                  NUMBER(2)    
+SHIPFIRSTNAME          VARCHAR2(10) 
+SHIPLASTNAME           VARCHAR2(20) 
+SHIPADDRESS            VARCHAR2(40) 
+SHIPCITY               VARCHAR2(20) 
+SHIPSTATE              VARCHAR2(2)  
+SHIPZIPCODE            VARCHAR2(15) 
+SHIPPHONE              VARCHAR2(10) 
+SHIPFAX                VARCHAR2(10) 
+SHIPEMAIL              VARCHAR2(25) 
+BILLFIRSTNAME          VARCHAR2(10) 
+BILLLASTNAME           VARCHAR2(20) 
+BILLADDRESS            VARCHAR2(40) 
+BILLCITY               VARCHAR2(20) 
+BILLSTATE              VARCHAR2(2)  
+BILLZIPCODE            VARCHAR2(15) 
+BILLPHONE              VARCHAR2(10) 
+BILLFAX                VARCHAR2(10) 
+BILLEMAIL              VARCHAR2(25) 
+DTORDERED              DATE         
+SHIPPROVINCE           VARCHAR2(20) 
+SHIPCOUNTRY            VARCHAR2(20) 
+BILLPROVINCE           VARCHAR2(20) 
+BILLCOUNTRY            VARCHAR2(20) 
+CARDTYPE               CHAR(1)      
+CARDNUMBER             VARCHAR2(20) 
+EXPMONTH               CHAR(2)      
+EXPYEAR                CHAR(4)      
+CARDNAME               VARCHAR2(25) 
+SHIPBILL               CHAR(1)      
+SHIPFLAG               CHAR(1)      
+
+Name         Null?    Type        
+------------ -------- ----------- 
+IDBASKETITEM NOT NULL NUMBER(2)   
+IDPRODUCT             NUMBER(2)   
+PRICE                 NUMBER(6,2) 
+QUANTITY              NUMBER(2)   
+IDBASKET              NUMBER(5)   
+OPTION1               NUMBER(2)   
+OPTION2               NUMBER(2)  
+ 
+Name        Null?    Type         
+----------- -------- ------------ 
+IDSTATUS    NOT NULL NUMBER(5)    
+IDBASKET             NUMBER(5)    
+IDSTAGE              NUMBER(1)    
+DTSTAGE              DATE         
+NOTES                VARCHAR2(50) 
+SHIPPER              VARCHAR2(5)  
+SHIPPINGNUM          VARCHAR2(20) 
+Name         Null?    Type          
+------------ -------- ------------- 
+IDDEPARTMENT NOT NULL NUMBER(2)     
+DEPTNAME              VARCHAR2(25)  
+DEPTDESC              VARCHAR2(100) 
+DEPTIMAGE             VARCHAR2(25)  
+Name      Null? Type        
+--------- ----- ----------- 
+IDPRODUCT       NUMBER(2)   
+MONTH           CHAR(3)     
+YEAR            CHAR(4)     
+QTY             NUMBER(5)   
+TOTAL           NUMBER(6,2) 
+Name         Null?    Type          
+------------ -------- ------------- 
+IDPRODUCT    NOT NULL NUMBER(2)     
+PRODUCTNAME           VARCHAR2(25)  
+DESCRIPTION           VARCHAR2(100) 
+PRODUCTIMAGE          VARCHAR2(25)  
+PRICE                 NUMBER(6,2)   
+SALESTART             DATE          
+SALEEND               DATE          
+SALEPRICE             NUMBER(6,2)   
+ACTIVE                NUMBER(1)     
+FEATURED              NUMBER(1)     
+FEATURESTART          DATE          
+FEATUREEND            DATE          
+TYPE                  CHAR(1)       
+IDDEPARTMENT          NUMBER(2)     
+STOCK                 NUMBER(5,1)   
+ORDERED               NUMBER(3)     
+REORDER               NUMBER(3)     
+Name            Null?    Type      
+--------------- -------- --------- 
+IDPRODUCTOPTION NOT NULL NUMBER(3) 
+IDOPTION                 NUMBER(2) 
+IDPRODUCT                NUMBER(2) 
+Name    Null?    Type        
+------- -------- ----------- 
+IDRANGE NOT NULL NUMBER(2)   
+LOW              NUMBER(3)   
+HIGH             NUMBER(3)   
+FEE              NUMBER(6,2) 
+Name      Null? Type        
+--------- ----- ----------- 
+IDSHOPPER       NUMBER(4)   
+TOTAL           NUMBER(6,2) 
+Name      Null?    Type         
+--------- -------- ------------ 
+IDSHOPPER NOT NULL NUMBER(4)    
+FIRSTNAME          VARCHAR2(15) 
+LASTNAME           VARCHAR2(20) 
+ADDRESS            VARCHAR2(40) 
+CITY               VARCHAR2(20) 
+STATE              CHAR(2)      
+ZIPCODE            VARCHAR2(15) 
+PHONE              VARCHAR2(10) 
+FAX                VARCHAR2(10) 
+EMAIL              VARCHAR2(25) 
+USERNAME           VARCHAR2(8)  
+PASSWORD           VARCHAR2(8)  
+COOKIE             NUMBER(4)    
+DTENTERED          DATE         
+PROVINCE           VARCHAR2(15) 
+COUNTRY            VARCHAR2(15) 
+PROMO              CHAR(1)      
+Name    Null?    Type        
+------- -------- ----------- 
+IDSTATE NOT NULL NUMBER(2)   
+STATE            CHAR(2)     
+TAXRATE          NUMBER(4,3) 
+

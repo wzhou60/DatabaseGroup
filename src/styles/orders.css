@@ -1,0 +1,259 @@
+:root {
+	--bg: #f7f9fb;
+	--card-bg: #ffffff;
+	--muted: #6b7280;
+	--accent: #0b76ff;
+	--accent-strong: #075fcc;
+	--border: #e6e9ef;
+	--success: #16a34a;
+	--warning: #b36b00;
+}
+
+/* Container */
+.orders-container {
+	max-width: 1080px;
+	margin: 32px auto;
+	padding: 24px;
+	background: transparent;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	color: #111827;
+	font-size: 16px; /* base size for larger UI */
+}
+
+/* Individual order card */
+.order-card {
+	background: var(--card-bg);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+	margin-bottom: 18px;
+}
+
+.order-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+.order-meta {
+	display: flex;
+	gap: 14px;
+	align-items: baseline;
+}
+
+.order-number {
+	font-weight: 800;
+	font-size: 1.12rem;
+}
+
+.order-date {
+	color: var(--muted);
+	font-size: 1rem;
+}
+
+.status-badge {
+	display: inline-block;
+	padding: 8px 14px;
+	border-radius: 999px;
+	font-weight: 800;
+	font-size: 0.95rem;
+}
+
+.status-badge.pending {
+	background: #fff7e6;
+	color: var(--warning);
+}
+
+.status-badge.shipped {
+	background: #e6ffef;
+	color: var(--success);
+}
+
+/* Items list */
+.order-items {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	border-top: 1px solid var(--border);
+	padding-top: 14px;
+}
+
+.order-item {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+
+.item-image {
+	width: 96px;
+	height: 96px;
+	border-radius: 10px;
+	background-size: cover;
+	background-position: center;
+	flex-shrink: 0;
+	border: 1px solid var(--border);
+}
+
+.item-details {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.item-title {
+	font-weight: 700;
+	font-size: 1.12rem;
+}
+
+.item-sub {
+	color: var(--muted);
+	font-size: 1rem;
+	margin-top: 8px;
+}
+
+.item-qty {
+	min-width: 90px;
+	text-align: left;
+	color: var(--muted);
+}
+
+.item-price {
+	min-width: 110px;
+	text-align: right;
+	font-weight: 800;
+	font-size: 1.04rem;
+}
+
+/* Footer: totals and actions */
+.order-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin-top: 16px;
+	border-top: 1px solid var(--border);
+	padding-top: 16px;
+	flex-wrap: wrap;
+}
+
+.totals {
+	min-width: 240px;
+	text-align: right;
+}
+
+.totals .line {
+	display: flex;
+	justify-content: space-between;
+	color: #374151;
+	margin-bottom: 8px;
+	font-size: 1rem;
+}
+
+.totals .muted {
+	color: var(--muted);
+	font-weight: 500;
+}
+
+.totals .total {
+	font-weight: 900;
+	font-size: 1.14rem;
+}
+
+.actions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 14px;
+	border-radius: 10px;
+	font-weight: 800;
+	cursor: pointer;
+	border: none;
+	font-size: 1rem;
+}
+
+.btn.primary {
+	background: var(--accent);
+	color: #fff;
+}
+
+.btn.ghost {
+	background: transparent;
+	color: var(--accent);
+	border: 1px solid var(--accent);
+}
+
+/* Small screens: stack meta and actions */
+@media (max-width: 680px) {
+	.order-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.order-footer {
+		flex-direction: column-reverse;
+		align-items: stretch;
+	}
+
+	.totals {
+		text-align: left;
+		width: 100%;
+		margin-bottom: 8px;
+	}
+
+	.item-price {
+		min-width: auto;
+		text-align: left;
+	}
+
+	.item-qty {
+		display: none;
+	}
+}
+
+/* Utility */
+.muted-text { color: var(--muted); }
+
+/* Larger inputs for shipping info */
+.shipping-input {
+	font-size: 1.14rem;
+	padding: 12px 14px;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background: #fff;
+	color: #0f172a;
+	min-width: 220px;
+	max-width: 420px;
+}
+
+.shipping-input:focus {
+	outline: 2px solid rgba(11,118,255,0.18);
+	box-shadow: 0 0 0 6px rgba(11,118,255,0.06);
+}
+
+/* Make displayed tracking info slightly larger and more prominent */
+.tracking-info {
+	font-size: 1.12rem;
+	font-weight: 700;
+	color: #0b76ff;
+}
+
+@media (max-width: 680px) {
+	.shipping-input {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.tracking-info {
+		font-size: 1rem;
+	}
+}
+

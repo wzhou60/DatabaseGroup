@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Coffee, ShoppingCart, BarChart3, LogIn } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
+import '../styles/orders.css';
 
 const OrdersPage = ({ orders, setOrders }) => {
   const [trackingNumber, setTrackingNumber] = useState('');
@@ -13,8 +13,8 @@ const OrdersPage = ({ orders, setOrders }) => {
       return;
     }
 
-    setOrders(orders.map(order => 
-      order.id === orderId 
+    setOrders(orders.map(order =>
+      order.id === orderId
         ? { ...order, status: 'shipped', trackingNumber, shipper }
         : order
     ));
@@ -26,106 +26,85 @@ const OrdersPage = ({ orders, setOrders }) => {
   };
 
   const getStatusClass = (status) => {
-    switch(status) {
-      case 'pending': return 'status-pending';
-      case 'shipped': return 'status-shipped';
-      case 'delivered': return 'status-delivered';
-      default: return '';
-    }
+    if (!status) return '';
+    return status.toLowerCase(); // returns 'pending', 'shipped', etc.
   };
 
   return (
-    <div className="page">
+    <div className="orders-container">
       <h1>My Orders</h1>
-      {orders.length === 0 ? (
+
+      {(!orders || orders.length === 0) ? (
         <div className="empty-state">
           <ShoppingCart size={64} />
-          <p style={{paddingBottom: '50px' }}>No orders yet</p>
-          <a href="/" className="btn-checkout"  >Start Shopping</a>
+          <p style={{ paddingBottom: '50px' }}>No orders yet</p>
+          <a href="/" className="btn-checkout">Start Shopping</a>
         </div>
       ) : (
         <div className="orders-list">
           {orders.map(order => (
             <div key={order.id} className="order-card">
               <div className="order-header">
-                <div>
-                  <h3>Order #{order.id}</h3>
-                  <p className="order-date">{new Date(order.date).toLocaleDateString()}</p>
+                <div className="order-meta">
+                  <div className="order-number">Order #{order.id}</div>
+                  <div className="order-date">{new Date(order.date).toLocaleDateString()}</div>
                 </div>
-                <span className={`order-status ${getStatusClass(order.status)}`}>
-                  {order.status.toUpperCase()}
-                </span>
+                <div>
+                  <span className={`status-badge ${getStatusClass(order.status)}`}>{(order.status || '').toUpperCase()}</span>
+                </div>
               </div>
-              
+
               <div className="order-items">
                 {order.items.map(item => (
                   <div key={item.id} className="order-item">
-                    <img src={item.image} alt={item.name} />
-                    <div>
-                      <p className="item-name">{item.name}</p>
-                      <p className="item-qty">Qty: {item.quantity}</p>
+                    <div className="item-image" style={{ backgroundImage: `url(${item.image})` }} />
+                    <div className="item-details">
+                      <div className="item-title">{item.name}</div>
+                      <div className="item-sub">Qty: {item.quantity}</div>
                     </div>
-                    <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
+                    <div className="item-price">${(item.price * item.quantity).toFixed(2)}</div>
                   </div>
                 ))}
               </div>
 
-              <div className="order-total">
-                <div className="total-row">
-                  <span>Subtotal:</span>
-                  <span>${order.subtotal.toFixed(2)}</span>
+              <div className="order-footer">
+                <div className="totals">
+                  <div className="line"><span className="muted">Subtotal:</span><span>${order.subtotal.toFixed(2)}</span></div>
+                  <div className="line"><span className="muted">Tax:</span><span>${order.tax.toFixed(2)}</span></div>
+                  <div className="line total"><span className="total">Total:</span><span className="total">${order.total.toFixed(2)}</span></div>
                 </div>
-                <div className="total-row">
-                  <span>Tax:</span>
-                  <span>${order.tax.toFixed(2)}</span>
-                </div>
-                <div className="total-row total">
-                  <span>Total:</span>
-                  <span>${order.total.toFixed(2)}</span>
-                </div>
-              </div>
 
-              {order.status === 'shipped' && order.trackingNumber && (
-                <div className="tracking-info">
-                  <p><strong>Shipper:</strong> {order.shipper}</p>
-                  <p><strong>Tracking #:</strong> {order.trackingNumber}</p>
-                </div>
-              )}
+                <div className="actions">
+                  {order.status === 'pending' && (
+                    selectedOrderId === order.id ? (
+                      <>
+                        <input
+                          type="text"
+                          placeholder="Tracking Number"
+                          value={trackingNumber}
+                          onChange={(e) => setTrackingNumber(e.target.value)}
+                          className="shipping-input"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Shipper (UPS, FedEx, etc.)"
+                          value={shipper}
+                          onChange={(e) => setShipper(e.target.value)}
+                          className="shipping-input"
+                        />
+                        <button onClick={() => updateShipping(order.id)} className="btn primary">Update</button>
+                        <button onClick={() => setSelectedOrderId(null)} className="btn ghost">Cancel</button>
+                      </>
+                    ) : (
+                      <button onClick={() => setSelectedOrderId(order.id)} className="btn primary">Update Shipping Status</button>
+                    )
+                  )}
 
-              {order.status === 'pending' && (
-                <div className="shipping-update">
-                  {selectedOrderId === order.id ? (
-                    <div className="shipping-form">
-                      <input
-                        type="text"
-                        placeholder="Tracking Number"
-                        value={trackingNumber}
-                        onChange={(e) => setTrackingNumber(e.target.value)}
-                        className="shipping-input"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Shipper (UPS, FedEx, etc.)"
-                        value={shipper}
-                        onChange={(e) => setShipper(e.target.value)}
-                        className="shipping-input"
-                      />
-                      <div className="shipping-actions">
-                        <button onClick={() => updateShipping(order.id)} className="btn-update">
-                          Update Status
-                        </button>
-                        <button onClick={() => setSelectedOrderId(null)} className="btn-cancel">
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button onClick={() => setSelectedOrderId(order.id)} className="btn-ship">
-                      Update Shipping Status
-                    </button>
+                  {order.status === 'shipped' && order.trackingNumber && (
+                    <div className="tracking-info muted-text">Shipper: {order.shipper} • Tracking #: {order.trackingNumber}</div>
                   )}
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>

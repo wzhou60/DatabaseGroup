@@ -1,0 +1,57 @@
+/// REPORTS ///
+
+
+
+
+
+/// TASKS ///
+
+TASK 1
+
+Orginal
+id: 1
+name: CapressoBar Model #351
+
+
+
+TASK 2
+
+
+TASK 3
+
+TASK 4
+
+
+TASK 5
+
+TASK 6
+
+
+
+RPEORTS 1
+
+
+REPORTS 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+style={{marginTop: '15px', padding: '10px', background: '#f0f0f0', borderRadius: '4px'}}

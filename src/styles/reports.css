@@ -1,0 +1,15 @@
+.result {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #000000;
+  border-left: 4px solid #6f4e37;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.result.highlight {
+  background-color: #c4edc8;
+  border-left-color: #0b8d11;
+  font-weight: bold;
+  color: #000000;
+}

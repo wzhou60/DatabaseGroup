@@ -165,7 +165,7 @@ const AdminPage = () => {
             />
             <button type="submit">Update</button>
           </form>
-          {msg1 && <div className="result">{msg1}</div>}
+          {msg1 && <div className="result highlight">{msg1}</div>}
         </div>
 
         {/* TASK 2: Add Product */}
@@ -204,7 +204,7 @@ const AdminPage = () => {
             </select>
             <button type="submit">Add Product</button>
           </form>
-          {msg2 && <div className="result">{msg2}</div>}
+          {msg2 && <div className="result highlight">{msg2}</div>}
         </div>
 
         {/* TASK 3: Calculate Tax */}
@@ -267,7 +267,7 @@ const AdminPage = () => {
             />
             <button type="submit">Update Status</button>
           </form>
-          {msg4 && <div className="result">{msg4}</div>}
+          {msg4 && <div className="result highlight">{msg4}</div>}
         </div>
 
         {/* TASK 5: Add to Basket */}
@@ -324,7 +324,7 @@ const AdminPage = () => {
             </div>
             <button type="submit">Add Item</button>
           </form>
-          {msg5 && <div className="result">{msg5}</div>}
+          {msg5 && <div className="result highlight">{msg5}</div>}
         </div>
 
         {/* TASK 6: Check Sale */}

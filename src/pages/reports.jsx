@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/reports.css'
 import { Link } from 'react-router-dom';
 import { Coffee, ShoppingCart, BarChart3, LogIn } from 'lucide-react';
 
@@ -62,7 +63,7 @@ const ReportsPage = () => {
           
           {/* DISPLAY RESULT */}
           {stockResult && (
-            <div style={{marginTop: '15px', padding: '10px', background: '#f0f0f0', borderRadius: '4px'}}>
+            <div className="result">
               <strong>Database Result:</strong> {stockResult}
             </div>
           )}
@@ -83,7 +84,7 @@ const ReportsPage = () => {
 
           {/* Result Display */}
           {spendingResult !== null && (
-             <div style={{marginTop: '15px', padding: '10px', backgroundColor: '#e8f5e9', borderLeft: '5px solid #4caf50',color: '#333'}}>
+             <div className ="result"  style={{marginTop: '15px', padding: '10px', backgroundColor: '#e8f5e9', borderLeft: '5px solid #4caf50',color: '#333'}}>
                <strong>Total Spent:</strong> ${spendingResult}
              </div>
           )}

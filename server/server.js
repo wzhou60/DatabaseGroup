@@ -1,7 +1,3 @@
-/* const express = require('express');
-const oracledb = require('oracledb');
-const cors = require('cors');
-const bodyParser = require('body-parser'); */
 import express from 'express';
 import oracledb from 'oracledb';
 import cors from 'cors';
@@ -17,8 +13,8 @@ app.use(bodyParser.json());
 const dbConfig = {
     user: "COMP214_F25_ers_38",      
     password: "password",  
-    connectString: "199.212.26.208:1521/SQLD" // remote
-    //connectString: "oracle1.centennialcollege.ca:1521/SQLD" // centennial
+    //connectString: "199.212.26.208:1521/SQLD" // remote
+    connectString: "oracle1.centennialcollege.ca:1521/SQLD" // at centennial
 
 };
 
@@ -27,7 +23,7 @@ async function executeSql(sql, binds = [], options = {}) {
     let connection;
     try {
         connection = await oracledb.getConnection(dbConfig);
-        options.autoCommit = true; // Essential for Tasks 1, 2, 4, 5
+        options.autoCommit = true; 
         const result = await connection.execute(sql, binds, options);
         return result;
     } catch (err) {
@@ -40,10 +36,10 @@ async function executeSql(sql, binds = [], options = {}) {
     }
 }
 // ---------------------------------------------------------
-// API ENDPOINTS
+// API ENDPOINTS 
 // ---------------------------------------------------------
 
-// TASK 1: Update Product Name (sp_product_update)
+// 1: Update Product Name (sp_product_update)  
 app.post('/api/update-product', async (req, res) => {
     try {
         const { prodId, name } = req.body;
@@ -156,7 +152,7 @@ app.post('/api/check-sale', async (req, res) => {
     }
 });
 
-// REPORT 1: Check Stock (CHECK_STOCK_SP)
+// REPORT 1: Check Stock (CHECK_STOCK_SP) 
 app.post('/api/reports/check-stock', async (req, res) => {
           console.log("api");
     try {

@@ -86,7 +86,7 @@ const AdminPage = () => {
       const data = await res.json();
       setProducts(data);
       setShowList(true);
-      console.log(filteredProducts);
+      //console.log(filteredProducts);
     } catch (err) {
       console.error("Failed to search products");
     }
@@ -115,7 +115,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg3(data.success ? `Tax Amount: $${data.taxAmount.toFixed(2)}` : data.error);
     } catch (err) {
-      setMsg3("Error calculating");
+      setMsg3({err}+"Error calculating");
     }
   };
 

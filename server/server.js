@@ -103,7 +103,6 @@ app.post("/api/calc-tax", async (req, res) => {
     const result = await executeSql(`BEGIN TAX_COST_SP(:st, :sub, :tax); END;`, {
       st: state,
       sub: Number(subtotal),
-      // Define the Output Parameter
       tax: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER },
     });
     res.json({ success: true, taxAmount: result.outBinds.tax });

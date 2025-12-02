@@ -274,9 +274,9 @@ const AdminPage = () => {
               onChange={(e) => setTask3({ ...task3, state: e.target.value })}
               required
             >
-              <option value="VA">Virginia</option>
-              <option value="NC">North Carolina</option>
-              <option value="SC">South Carolina</option>
+              <option value="VA">VA</option>
+              <option value="NC">NC</option>
+              <option value="SC">SC</option>
             </select>
             <input
               type="number"

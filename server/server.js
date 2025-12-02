@@ -1,7 +1,8 @@
 import express from "express";
-import oracledb from "oracledb";
 import cors from "cors";
 import bodyParser from "body-parser";
+import oracledb from "oracledb";
+
 
 const app = express();
 app.use(cors());

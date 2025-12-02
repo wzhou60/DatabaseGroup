@@ -97,7 +97,7 @@ const AdminPage = () => {
   //to fetch products once when the component mounts
   useEffect(() => {
     fetchProducts();
-  }, []); 
+  }, []);
 
   // --- TASK 3: Calculate Tax ---
   // Matches server.js endpoint /api/calc-tax
@@ -269,13 +269,15 @@ const AdminPage = () => {
             <DollarSign size={20} /> 3. Calculate Tax
           </h3>
           <form onSubmit={handleCalcTax}>
-            <input
-              type="text"
-              placeholder="State (e.g., VA)"
+            <select
               value={task3.state}
               onChange={(e) => setTask3({ ...task3, state: e.target.value })}
               required
-            />
+            >
+              <option value="VA">Virginia</option>
+              <option value="NC">North Carolina</option>
+              <option value="SC">South Carolina</option>
+            </select>
             <input
               type="number"
               placeholder="Subtotal"

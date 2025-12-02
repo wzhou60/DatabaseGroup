@@ -6,6 +6,9 @@ Orginal
 id: 1
 name: CapressoBar Model #351
 
+
+
+
 -- Testing code
 SELECT * FROM bb_product;
 

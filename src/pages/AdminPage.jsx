@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/admin.css";
 import {
   Settings,
@@ -13,7 +13,6 @@ import {
 
 const AdminPage = () => {
   const API_URL = "http://localhost:5000/api";
-
   // --- TASK 1: Update Product Name ---
   // Matches server.js endpoint /api/update-product
   const [task1, setTask1] = useState({ prodId: "", name: "" });
@@ -93,9 +92,12 @@ const AdminPage = () => {
     }
   };
 
-  const filteredProducts = products.filter(
-    (p) => p[1] && p[1].toLowerCase().includes(searchName.toLowerCase())
-  );
+  // const filteredProducts = products.filter((p) => p[1] && p[1].toLowerCase().includes(searchName.toLowerCase())  );
+
+  //to fetch products once when the component mounts
+  useEffect(() => {
+    fetchProducts();
+  }, []); 
 
   // --- TASK 3: Calculate Tax ---
   // Matches server.js endpoint /api/calc-tax
@@ -438,8 +440,8 @@ const AdminPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProducts.length > 0 ? (
-                    filteredProducts.map((p) => (
+                  {products.length > 0 ? (
+                    products.map((p) => (
                       <tr key={p[1]}>
                         <td>{p[0]}</td>
                         <td>{p[1]}</td>

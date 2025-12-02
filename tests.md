@@ -12,6 +12,7 @@ name: CapressoBar Model #351
 -- Testing code
 SELECT * FROM bb_product;
 
+CALL sp_product_update(1,'CapressoBar Model #388');
 
 
 ## TASK 2
@@ -32,6 +33,7 @@ state =
 VA
 NC
 SC
+
 
 
 select * from bb_tax;

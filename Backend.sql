@@ -14,7 +14,7 @@ END;
 
 -- Testing code
 SELECT * FROM bb_product;
-CALL sp_product_update(1,'CapressoBar Model #388');
+CALL sp_product_update(1,'CapressoBar Model #388 tastes sus');
 -- original
 EXECUTE sp_product_update(1,'CapressoBar Model #351'); 
 

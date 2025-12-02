@@ -13,6 +13,15 @@ const CartPage = ({ cart, setCart }) => {
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
 
+  // Default Image Logic
+  const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1524350876685-274059332603?w=400';
+
+  const getImageSrc = (img) => {
+    if (!img || img.trim() === '') return DEFAULT_IMAGE;
+    if (img.startsWith('http')) return img;
+    return `/${img}`;
+  };
+
   const removeItem = (id) => {
     setCart(cart.filter((item) => item.id !== id));
     setShowRemoveConfirm(null);
@@ -69,7 +78,16 @@ const CartPage = ({ cart, setCart }) => {
           <div className="cart-items">
             {cart.map((item) => (
               <div key={item.id} className="cart-item">
-                <img src={item.image} alt={item.name} />
+                <img 
+                  src={getImageSrc(item.image)} 
+                  alt={item.name}
+                  onError={(e) => { 
+                    if (e.currentTarget.src !== DEFAULT_IMAGE) {
+                      e.currentTarget.src = DEFAULT_IMAGE; 
+                      e.currentTarget.onerror = null; 
+                    }
+                  }}
+                />
                 <div className="item-details">
                   <h3>{item.name}</h3>
                   <div className="quantity-controls">

@@ -9,6 +9,15 @@ const OrdersPage = ({ orders }) => {
     return status.toLowerCase(); // returns 'pending', 'shipped', etc.
   };
 
+  // Default Image Logic
+  const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1524350876685-274059332603?w=400';
+
+  const getImageSrc = (img) => {
+    if (!img || img.trim() === '') return DEFAULT_IMAGE;
+    if (img.startsWith('http')) return img;
+    return `/${img}`;
+  };
+
   return (
     <div className="orders-container">
       <h1>My Orders</h1>
@@ -40,7 +49,19 @@ const OrdersPage = ({ orders }) => {
               <div className="order-items">
                 {order.items.map((item) => (
                   <div key={item.id} className="order-item">
-                    <div className="item-image" style={{ backgroundImage: `url(${item.image})` }} />
+                    {/* Switched from background-image div to img tag for onError support */}
+                    <img 
+                      className="item-image" 
+                      src={getImageSrc(item.image)} 
+                      alt={item.name}
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                      onError={(e) => { 
+                        if (e.currentTarget.src !== DEFAULT_IMAGE) {
+                          e.currentTarget.src = DEFAULT_IMAGE; 
+                          e.currentTarget.onerror = null; 
+                        }
+                      }}
+                    />
                     <div className="item-details">
                       <div className="item-title">{item.name}</div>
                       <div className="item-sub">Qty: {item.quantity}</div>

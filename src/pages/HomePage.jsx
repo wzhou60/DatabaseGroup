@@ -1,27 +1,101 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Coffee, ShoppingCart, BarChart3, LogIn } from 'lucide-react';
-import { products } from '../data/products';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Coffee, ShoppingCart, BarChart3, LogIn } from "lucide-react";
 
 const HomePage = ({ cart, setCart }) => {
-  const [search, setSearch] = useState('');
-  
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(search.toLowerCase())
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // The default image requested by the user
+  const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1524350876685-274059332603?w=400";
+
+  useEffect(() => {
+    let isMounted = true; // Prevents state updates if component unmounts (fixes some flashing)
+
+    const fetchProducts = async () => {
+      try {
+        const TX = await fetch("http://localhost:5000/api/products");
+        if (!TX.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await TX.json();
+
+        if (isMounted) {
+          // Map database rows to product objects
+          // Assuming structure: [id, name, description, image, price, active, stock(maybe)]
+          const mappedProducts = data.map((row) => ({
+            id: row[0],
+            name: row[1],
+            description: row[2],
+            image: row[3],
+            price: row[4],
+            stock: row[6] !== undefined ? row[6] : 50, // Default stock if index 6 is missing
+          }));
+
+          setProducts(mappedProducts);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error("Error fetching products:", err);
+          setError(err.message);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredProducts = products.filter(
+    (p) => p.name && p.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const addToCart = (product) => {
-    const existing = cart.find(item => item.id === product.id);
+    const existing = cart.find((item) => item.id === product.id);
     if (existing) {
-      setCart(cart.map(item => 
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      ));
+      setCart(
+        cart.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        )
+      );
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
-    alert('Added to cart!');
+    alert("Added to cart!");
   };
-  
+
+  // Improved helper to determine the image source
+  const getImageSrc = (img) => {
+    // If database value is null, empty, or undefined, use default immediately
+    if (!img || img.trim() === "") return DEFAULT_IMAGE;
+
+    // If it's a full URL (http/https), use it
+    if (img.startsWith("http")) return img;
+
+    // Otherwise assume it's a local file in /public
+    return `/${img}`;
+  };
+
+  if (loading)
+    return (
+      <div className="page" style={{ textAlign: "center", marginTop: "2rem" }}>
+        <p>Loading our collection...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="page" style={{ textAlign: "center", marginTop: "2rem", color: "red" }}>
+        <p>Unable to load products. Please check your connection.</p>
+      </div>
+    );
+
   return (
     <div className="page">
       <div className="header">
@@ -35,13 +109,31 @@ const HomePage = ({ cart, setCart }) => {
         />
       </div>
       <div className="product-grid">
-        {filteredProducts.map(product => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} />
+            <img
+              src={getImageSrc(product.image)}
+              alt={product.name}
+              // Prevent flashing by handling error once and removing handler
+              onError={(e) => {
+                if (e.currentTarget.src !== DEFAULT_IMAGE) {
+                  e.currentTarget.src = DEFAULT_IMAGE;
+                  e.currentTarget.onerror = null;
+                }
+              }}
+            />
             <h3>{product.name}</h3>
-            <p className="price">${product.price}</p>
-            <p className="stock">Stock: {product.stock}</p>
-            <button onClick={() => addToCart(product)} className="btn-add">Add to Cart</button>
+            <p className="price">
+              ${typeof product.price === "number" ? product.price.toFixed(2) : product.price}
+            </p>
+            {product.description && (
+              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+                {product.description}
+              </p>
+            )}
+            <button onClick={() => addToCart(product)} className="btn-add">
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>

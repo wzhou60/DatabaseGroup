@@ -96,8 +96,6 @@ app.get("/api/products/search", async (req, res) => {
   }
 });
 
-
-
 // TASK 3: Calculate Tax (TAX_COST_SP with OUT parameter)
 app.post("/api/calc-tax", async (req, res) => {
   try {
@@ -179,7 +177,7 @@ app.post("/api/reports/check-stock", async (req, res) => {
       msg: { dir: oracledb.BIND_OUT, type: oracledb.STRING },
     });
     res.json({ success: true, stockStatus: result.outBinds.msg });
-    console.log("Database Output:", result.outBinds.msg); 
+    console.log("Database Output:", result.outBinds.msg);
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }

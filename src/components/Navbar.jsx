@@ -12,12 +12,12 @@ const Navbar = ({ cartCount, isLoggedIn, onLogout }) => (
       <div className="nav-links">
         <Link to="/">Products</Link>
         <Link to="/reports">Reports</Link>
-        <Link to="/orders">Orders</Link>
 
         {/* New Admin Link */}
         <Link to="/admin" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
           Admin
         </Link>
+        <Link to="/orders">Orders</Link>
 
         <Link to="/cart" className="cart-link">
           <ShoppingCart size={20} />

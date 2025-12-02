@@ -97,21 +97,3 @@ Shooper Ids: 21-27
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-style={{marginTop: '15px', padding: '10px', background: '#f0f0f0', borderRadius: '4px'}}

@@ -42,7 +42,7 @@ async function executeSql(sql, binds = [], options = {}) {
 // API ENDPOINTS
 // ---------------------------------------------------------
 
-// 1: Update Product Name (sp_product_update)
+// TASK 1: Update Product Name (sp_product_update)
 app.post("/api/update-product", async (req, res) => {
   try {
     const { prodId, name } = req.body;
@@ -70,7 +70,7 @@ app.post("/api/add-product", async (req, res) => {
   }
 });
 
-// ---  Get All Products (For Task 2 List) ---
+// ---  Get All Products (For Task 2 ) ---
 app.get("/api/products", async (req, res) => {
   try {
     // Ordering by ID DESC so the newest added product appears at the top/start
@@ -81,11 +81,11 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-// ---  Search Product by Name (For Task 2 Search) ---
+// ---  Search Product by Name (For Task 2) ---
 app.get("/api/products/search", async (req, res) => {
   try {
     const { name } = req.query;
-    // Case-insensitive search using UPPER
+    // Case-insensitive using UPPER
     const result = await executeSql(
       `SELECT * FROM bb_product WHERE UPPER(productname) LIKE UPPER(:name) ORDER BY idproduct`,
       { name: `%${name}%` }

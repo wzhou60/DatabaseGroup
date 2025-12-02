@@ -24,14 +24,13 @@ const HomePage = ({ cart, setCart }) => {
 
         if (isMounted) {
           // Map database rows to product objects
-          // Assuming structure: [id, name, description, image, price, active, stock(maybe)]
           const mappedProducts = data.map((row) => ({
             id: row[0],
             name: row[1],
             description: row[2],
             image: row[3],
             price: row[4],
-            stock: row[6] !== undefined ? row[6] : 50, // Default stock if index 6 is missing
+            stock: row[14] !== null ? row[14] : 68, // Default stock if index 6 is missing
           }));
 
           setProducts(mappedProducts);
@@ -73,13 +72,12 @@ const HomePage = ({ cart, setCart }) => {
 
   // Improved helper to determine the image source
   const getImageSrc = (img) => {
-    // If database value is null, empty, or undefined, use default immediately
+    // If database value is null, empty, or undefined, use default image
     if (!img || img.trim() === "") return DEFAULT_IMAGE;
 
     // If it's a full URL (http/https), use it
     if (img.startsWith("http")) return img;
 
-    // Otherwise assume it's a local file in /public
     return `/${img}`;
   };
 
@@ -127,10 +125,14 @@ const HomePage = ({ cart, setCart }) => {
               ${typeof product.price === "number" ? product.price.toFixed(2) : product.price}
             </p>
             {product.description && (
-              <p style={{ fontSize: "0.9rem", color: "#666", marginBottom: "0.5rem" }}>
+              <p style={{ fontSize: "1rem", color: "#000000ff", marginBottom: "0.35rem" }}>
                 {product.description}
               </p>
             )}
+            <p style={{ fontSize: "0.9rem", color: "#2a2929ff", marginBottom: "0.5rem" }}>
+              {"Stock:"} {product.stock}
+            </p>
+
             <button onClick={() => addToCart(product)} className="btn-add">
               Add to Cart
             </button>

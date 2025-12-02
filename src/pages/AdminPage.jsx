@@ -29,6 +29,7 @@ const AdminPage = () => {
       });
       const data = await res.json();
       setMsg1(data.message || data.error);
+      fetchProducts();
     } catch (err) {
       setMsg1("Error connecting to server");
     }
@@ -55,6 +56,7 @@ const AdminPage = () => {
       });
       const data = await res.json();
       setMsg2(data.message || data.error);
+      fetchProducts();
     } catch (err) {
       setMsg2("Error connecting to server");
     }
@@ -85,10 +87,15 @@ const AdminPage = () => {
       const data = await res.json();
       setProducts(data);
       setShowList(true);
+      console.log(filteredProducts);
     } catch (err) {
       console.error("Failed to search products");
     }
   };
+
+  const filteredProducts = products.filter(
+    (p) => p[1] && p[1].toLowerCase().includes(searchName.toLowerCase())
+  );
 
   // --- TASK 3: Calculate Tax ---
   // Matches server.js endpoint /api/calc-tax
@@ -431,9 +438,9 @@ const AdminPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.length > 0 ? (
-                    products.map((p) => (
-                      <tr key={p[0]}>
+                  {filteredProducts.length > 0 ? (
+                    filteredProducts.map((p) => (
+                      <tr key={p[1]}>
                         <td>{p[0]}</td>
                         <td>{p[1]}</td>
                         <td>{p[2]}</td>

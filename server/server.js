@@ -18,12 +18,11 @@ const dbConfig = {
 };
 
 // Helper function to execute SQL
-async function executeSql(sql, binds = [], options = {}) {
+async function executeSql(sql, binds = []) {
   let connection;
   try {
     connection = await oracledb.getConnection(dbConfig);
-    options.autoCommit = true;
-    const result = await connection.execute(sql, binds, options);
+    const result = await connection.execute(sql, binds, { autoCommit: true });
     return result;
   } catch (err) {
     console.error("Database Error:", err);

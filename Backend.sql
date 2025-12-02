@@ -153,21 +153,20 @@ CREATE OR REPLACE PROCEDURE CHECK_STOCK_SP (
         WHERE bi.idBasket = p_basketid;
         
     v_all_stock CHAR(1) := 'Y';
-    v_item_count NUMBER := 0; -- Added to track if basket exists/has items
+    v_item_count NUMBER := 0; 
 BEGIN
     FOR rec IN cur_basket LOOP
-    -- Increment counter to prove we found items
-    v_item_count := v_item_count + 1;
-    DBMS_OUTPUT.PUT_LINE(' | Product: ' || rec.productname || 
-                             ' | Ordered: ' || rec.quantity || 
-                             ' | In Stock: ' || rec.stock);
-                             
+        v_item_count := v_item_count + 1;
+        DBMS_OUTPUT.PUT_LINE(' | Product: ' || rec.productname || 
+                                ' | Ordered: ' || rec.quantity || 
+                                ' | In Stock: ' || rec.stock);
+                                
         IF NVL(rec.stock, 0) < rec.quantity THEN
             v_all_stock := 'N';
         END IF;
     END LOOP;
     
-     IF v_item_count = 0 THEN
+    IF v_item_count = 0 THEN
         p_message := 'Basket is empty or does not exist';
     ELSIF v_all_stock = 'Y' THEN
         p_message := 'All items in stock!';
@@ -190,9 +189,6 @@ BEGIN
 END;
 
 desc bb_basketitem;
-
-INSERT INTO bb_basketitem (idbasketitem, idproduct, price, quantity, idbasket,option1, option2)
-VALUES (1,15,10,67,19,2,3);
 
 ------------
 -- REPORT 2: Total Spending Function

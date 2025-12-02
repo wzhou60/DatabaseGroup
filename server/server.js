@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 const dbConfig = {
     user: "COMP214_F25_ers_38",      
     password: "password",  
-    connectString: "199.212.26.208:1521/SQLD" // remote
-    //connectString: "oracle1.centennialcollege.ca:1521/SQLD" // centennial
+    // connectString: "199.212.26.208:1521/SQLD" // remote
+    connectString: "oracle1.centennialcollege.ca:1521/SQLD" // centennial
 
 };
 

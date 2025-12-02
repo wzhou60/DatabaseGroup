@@ -21,6 +21,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg1(data.message || data.error);
     } catch (err) {
+      console.error(err);
       setMsg1("Error connecting to server");
     }
   };
@@ -47,6 +48,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg2(data.message || data.error);
     } catch (err) {
+      console.error(err);
       setMsg2("Error connecting to server");
     }
   };
@@ -67,6 +69,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg3(data.success ? `Tax Amount: $${data.taxAmount.toFixed(2)}` : data.error);
     } catch (err) {
+      console.error(err);
       setMsg3("Error calculating");
     }
   };
@@ -87,6 +90,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg4(data.message || data.error);
     } catch (err) {
+      console.error(err);
       setMsg4("Error updating status");
     }
   };
@@ -114,6 +118,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg5(data.message || data.error);
     } catch (err) {
+      console.error(err);
       setMsg5("Error adding item");
     }
   };
@@ -134,6 +139,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg6(data.result || data.error);
     } catch (err) {
+      console.error(err);
       setMsg6("Error checking sale");
     }
   };

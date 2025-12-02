@@ -1,15 +1,13 @@
--- TASK 1: Procedure to Update Product Name Description?
+-- TASK 1: Procedure to Update Product Description?
 ------------
 
 CREATE OR REPLACE PROCEDURE sp_product_update (
     p_prodid IN bb_product.idproduct%TYPE,
     p_desc   IN bb_product.description%TYPE
-    --p_name   IN bb_product.productname%TYPE
 ) IS
 BEGIN
     UPDATE bb_product
     SET description = p_desc
-    --SET productname = p_name
     WHERE idproduct = p_prodid;
     COMMIT;
 END;

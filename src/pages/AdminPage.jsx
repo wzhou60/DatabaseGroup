@@ -197,7 +197,7 @@ const AdminPage = () => {
             />
             <input
               type="text"
-              placeholder="New Name"
+              placeholder="New Description"
               value={task1.name}
               onChange={(e) => setTask1({ ...task1, name: e.target.value })}
               required
@@ -234,20 +234,20 @@ const AdminPage = () => {
               onChange={(e) => setTask2({ ...task2, price: e.target.value })}
               required
             />
-             <input 
-                type="text" 
-                placeholder="Image Path (e.g. roasted.jpg)" 
-                value={task2.image} 
-                onChange={(e) => setTask2({ ...task2, image: e.target.value })} 
+            <input
+              type="text"
+              placeholder="Image Path (e.g. roasted.jpg)"
+              value={task2.image}
+              onChange={(e) => setTask2({ ...task2, image: e.target.value })}
             />
-            <input 
-                type="number" 
-                placeholder="Active Status (0 or 1)" 
-                value={task2.status} 
-                onChange={(e) => setTask2({ ...task2, status: e.target.value })}
-                min="0"
-                max="1"
-                required 
+            <input
+              type="number"
+              placeholder="Active Status (0 or 1)"
+              value={task2.status}
+              onChange={(e) => setTask2({ ...task2, status: e.target.value })}
+              min="0"
+              max="1"
+              required
             />
             <button type="submit">Add Product</button>
           </form>

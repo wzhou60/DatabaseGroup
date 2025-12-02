@@ -61,6 +61,7 @@ BEGIN
 END;
 
 -- test
+select * from bb_tax;
 --EXECUTE TAX_COST_SP ('VA', 100); 
 DECLARE
    v_tax NUMBER;

@@ -1,9 +1,3 @@
-/// REPORTS ///
-
-
-
-
-
 /// TASKS ///
 
 TASK 1
@@ -15,9 +9,21 @@ name: CapressoBar Model #351
 
 
 TASK 2
+Adding a product
+
+('Roasted Blend', 'Well-balanced mix of roasted beans, a medium body', 'roasted.jpg', 9.50, 1)
+
+
 
 
 TASK 3
+
+state =
+VA
+
+
+
+
 
 TASK 4
 
@@ -28,10 +34,19 @@ TASK 6
 
 
 
-RPEORTS 1
+
+/// REPORTS ///
+
+
+REPORTS 1
+
+Basket Ids:
+3-16
 
 
 REPORTS 2
+
+Shooper Ids: 21-27
 
 
 

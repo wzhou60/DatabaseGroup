@@ -1,4 +1,6 @@
 -- TASK 1: Procedure to Update Product Name Description?
+------------
+
 CREATE OR REPLACE PROCEDURE sp_product_update (
     p_prodid IN bb_product.idproduct%TYPE,
     p_desc   IN bb_product.description%TYPE
@@ -18,8 +20,10 @@ CALL sp_product_update(1,'CapressoBar Model #388');
 -- original
 EXECUTE sp_product_update(1,'CapressoBar Model #351'); 
 
-
+------------
 -- TASK 2: Procedure to Add New Product
+------------
+
 CREATE OR REPLACE PROCEDURE PROD_ADD_SP (
     p_name   IN bb_product.productname%TYPE, -- varchar
     p_desc   IN bb_product.description%TYPE, -- varchar
@@ -37,8 +41,10 @@ END;
 SELECT * FROM bb_product;
 CALL PROD_ADD_SP ('Roasted Blend', 'Well-balanced mix of roasted beans, a medium body', 'roasted.jpg', 9.50, 1);
 
-
+------------
 -- TASK 3: Procedure to Calculate Tax (Using OUT parameter for the API)
+------------
+
 CREATE OR REPLACE PROCEDURE TAX_COST_SP (
     p_state    IN bb_tax.state%TYPE,
     p_subtotal IN bb_basket.subtotal%TYPE,
@@ -63,8 +69,10 @@ BEGIN
  DBMS_OUTPUT.PUT_LINE('Tax amount: $' || TO_CHAR(v_tax, '999.99'));
 END;
 
-
+------------
 -- TASK 4: Update Order Status
+------------
+
 CREATE OR REPLACE PROCEDURE STATUS_SHIP_SP (
     p_basketid IN bb_basketstatus.idbasket%TYPE,
     p_date     IN DATE,
@@ -83,7 +91,10 @@ EXECUTE status_ship_sp(3,'20-FEB-12','UPS','ZW2384YXK4957999');
 --EXECUTE status_ship_sp(3,TO_DATE('20-FEB-12', 'DD-MON-YY'),'UPS','ZW2384YXK4957');
 
 
+------------
 -- TASK 5: Add Item to Basket (all numbers)
+------------
+
 CREATE OR REPLACE PROCEDURE BASKET_ADD_SP (
     p_basketid IN bb_basketitem.idbasket%TYPE,
     p_prodid   IN bb_basketitem.idproduct%TYPE,
@@ -102,8 +113,10 @@ END;
 select * from bb_basketitem;
 EXECUTE BASKET_ADD_SP(14,8,10.80,1,2,4);
 
-
+------------
 -- TASK 6: Function to Check Sale
+------------
+
 CREATE OR REPLACE FUNCTION CK_SALE_SF (p_date IN DATE, p_prodid IN NUMBER)
  RETURN VARCHAR2 IS
     v_count NUMBER;
@@ -124,35 +137,66 @@ select * from bb_product;
 SELECT CK_SALE_SF('10-JUN-12', 6) FROM DUAL;
 SELECT CK_SALE_SF('19-JUN-12', 6)FROM DUAL;
 
+------------
+-- REPORT 1: Check Stock 
+------------
 
--- REPORT 1: Check Stock (Modified to return value to GUI instead of DBMS_OUTPUT)
 CREATE OR REPLACE PROCEDURE CHECK_STOCK_SP (
     p_basketid IN NUMBER,
     p_message  OUT VARCHAR2
 ) IS
     CURSOR cur_basket IS
-        SELECT bi.quantity, p.stock
+        SELECT bi.quantity, p.stock, p.productname
         FROM bb_basketitem bi 
         INNER JOIN bb_product p USING (idProduct)
         WHERE bi.idBasket = p_basketid;
         
     v_all_stock CHAR(1) := 'Y';
+    v_item_count NUMBER := 0; -- Added to track if basket exists/has items
 BEGIN
     FOR rec IN cur_basket LOOP
-        IF rec.stock < rec.quantity THEN
+    -- Increment counter to prove we found items
+    v_item_count := v_item_count + 1;
+    DBMS_OUTPUT.PUT_LINE(' | Product: ' || rec.productname || 
+                             ' | Ordered: ' || rec.quantity || 
+                             ' | In Stock: ' || rec.stock);
+                             
+        IF NVL(rec.stock, 0) < rec.quantity THEN
             v_all_stock := 'N';
         END IF;
     END LOOP;
     
-    IF v_all_stock = 'Y' THEN
+     IF v_item_count = 0 THEN
+        p_message := 'Basket is empty or does not exist';
+    ELSIF v_all_stock = 'Y' THEN
         p_message := 'All items in stock!';
     ELSE
         p_message := 'All items NOT in stock!';
     END IF;
 END;
 
+-- test 
+select * from bb_basketitem;
+select * from bb_product;
 
+DECLARE
+    v_result_msg VARCHAR2(100); 
+    v_test_basket_id NUMBER := 25;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('--- Testing Basket #' || v_test_basket_id || ' ---');
+    CHECK_STOCK_SP(v_test_basket_id, v_result_msg);
+    DBMS_OUTPUT.PUT_LINE('FINAL STATUS: ' || v_result_msg);
+END;
+
+desc bb_basketitem;
+
+INSERT INTO bb_basketitem (idbasketitem, idproduct, price, quantity, idbasket,option1, option2)
+VALUES (1,15,10,67,19,2,3);
+
+------------
 -- REPORT 2: Total Spending Function
+------------
+
 CREATE OR REPLACE FUNCTION TOT_PURCH_SF (p_shopperid IN NUMBER)
 RETURN NUMBER
 IS
@@ -168,5 +212,11 @@ BEGIN
    -- WHEN OTHERS THEN RETURN 0;
 END ;
 
-
 SELECT TOT_PURCH_SF(1) FROM dual;
+-- test stuff
+select * from bb_basket;
+
+
+
+
+

@@ -1,5 +1,4 @@
 :root {
-	--bg: #f7f9fb;
 	--card-bg: #ffffff;
 	--muted: #6b7280;
 	--accent: #0b76ff;
@@ -181,7 +180,7 @@
 }
 
 .btn.primary {
-	background: var(--accent);
+	background: #6f4e37;
 	color: #fff;
 }
 

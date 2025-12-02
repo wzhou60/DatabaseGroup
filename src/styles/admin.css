@@ -20,7 +20,7 @@
   background: white;
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0e0e0;
 }
 
@@ -40,7 +40,8 @@
   gap: 0.8rem;
 }
 
-.card input, .card select {
+.card input,
+.card select {
   padding: 0.6rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -83,4 +84,105 @@
   border-left-color: #0b8d11;
   font-weight: bold;
   color: #000000;
+}
+
+/* --- PRODUCT SEARCH & LIST SECTION --- */
+.product-search-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  width: 71rem;
+  display: block;
+  min-width: 400px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+.search-header h2 {
+  color: #4a3b32;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.search-box input {
+  flex-grow: 1;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.search-box button {
+  background-color: #6f4e37;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-box .btn-secondary {
+  background-color: #8d6e63;
+}
+
+.search-box button:hover {
+  background-color: #5a3d2b;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.product-table th {
+  background-color: #4a3b32;
+  color: white;
+  font-weight: 600;
+}
+
+.product-table tr {
+  background-color: #ffffff;
+  color: rgb(3, 3, 3);
+  font-weight: 600;
+}
+
+.product-table tr:hover {
+  background-color: #f9f9f9;
 }

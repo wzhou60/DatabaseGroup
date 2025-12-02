@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import '../styles/admin.css';
-import { Settings, PlusCircle, DollarSign, Truck, ShoppingBag, Tag } from "lucide-react";
+import "../styles/admin.css";
+import {
+  Settings,
+  PlusCircle,
+  DollarSign,
+  Truck,
+  ShoppingBag,
+  Tag,
+  Search,
+  List,
+} from "lucide-react";
 
 const AdminPage = () => {
   const API_URL = "http://localhost:5000/api";
 
   // --- TASK 1: Update Product Name ---
-   // Matches server.js endpoint /api/update-product [cite: 102, 103]
+  // Matches server.js endpoint /api/update-product
   const [task1, setTask1] = useState({ prodId: "", name: "" });
   const [msg1, setMsg1] = useState("");
 
@@ -26,13 +35,13 @@ const AdminPage = () => {
   };
 
   // --- TASK 2: Add New Product ---
-   // Matches server.js endpoint /api/add-product [cite: 118, 121]
+  // Matches server.js endpoint /api/add-product
   const [task2, setTask2] = useState({
     name: "",
     desc: "",
-    image: "roasted.jpg",
+    image: "",
     price: "",
-    status: 1,
+    status: "",
   });
   const [msg2, setMsg2] = useState("");
 
@@ -51,9 +60,39 @@ const AdminPage = () => {
     }
   };
 
+  // State for Product List & Search
+  const [products, setProducts] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [showList, setShowList] = useState(false);
+
+  // Helper to fetch all products
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(`${API_URL}/products`);
+      const data = await res.json();
+      setProducts(data);
+      setShowList(true);
+    } catch (err) {
+      console.error("Failed to fetch products");
+    }
+  };
+
+  // Helper for Search
+  const handleSearchProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${API_URL}/products/search?name=${searchName}`);
+      const data = await res.json();
+      setProducts(data);
+      setShowList(true);
+    } catch (err) {
+      console.error("Failed to search products");
+    }
+  };
+
   // --- TASK 3: Calculate Tax ---
-   // Matches server.js endpoint /api/calc-tax [cite: 151, 154]
-  const [task3, setTask3] = useState({ state: "VA", subtotal: "" });
+  // Matches server.js endpoint /api/calc-tax
+  const [task3, setTask3] = useState({ state: "", subtotal: "" });
   const [msg3, setMsg3] = useState(null);
 
   const handleCalcTax = async (e) => {
@@ -72,8 +111,8 @@ const AdminPage = () => {
   };
 
   // --- TASK 4: Update Order Status ---
-   // Matches server.js endpoint /api/ship-status [cite: 162, 167]
-  const [task4, setTask4] = useState({ basketId: "", date: "", shipper: "UPS", track: "" });
+  // Matches server.js endpoint /api/ship-status
+  const [task4, setTask4] = useState({ basketId: "", date: "", shipper: "", track: "" });
   const [msg4, setMsg4] = useState("");
 
   const handleShipStatus = async (e) => {
@@ -92,14 +131,14 @@ const AdminPage = () => {
   };
 
   // --- TASK 5: Add Item to Basket (Manual) ---
-   // Matches server.js endpoint /api/add-basket [cite: 188]
+  // Matches server.js endpoint /api/add-basket
   const [task5, setTask5] = useState({
     basketId: "",
     prodId: "",
     price: "",
-    qty: 1,
-    size: 1,
-    form: 1,
+    qty: "",
+    size: "",
+    form: "",
   });
   const [msg5, setMsg5] = useState("");
 
@@ -119,7 +158,7 @@ const AdminPage = () => {
   };
 
   // --- TASK 6: Check Sale ---
-   // Matches server.js endpoint /api/check-sale [cite: 204, 207]
+  // Matches server.js endpoint /api/check-sale
   const [task6, setTask6] = useState({ date: "", prodId: "" });
   const [msg6, setMsg6] = useState("");
 
@@ -146,7 +185,7 @@ const AdminPage = () => {
         {/* TASK 1: Edit Product */}
         <div className="card">
           <h3>
-            <Settings size={20} /> Update Product Name
+            <Settings size={20} /> 1. Update Product Name
           </h3>
           <form onSubmit={handleUpdateProduct}>
             <input
@@ -171,7 +210,7 @@ const AdminPage = () => {
         {/* TASK 2: Add Product */}
         <div className="card">
           <h3>
-            <PlusCircle size={20} /> Add New Product
+            <PlusCircle size={20} /> 2. Add New Product
           </h3>
           <form onSubmit={handleAddProduct}>
             <input
@@ -195,13 +234,21 @@ const AdminPage = () => {
               onChange={(e) => setTask2({ ...task2, price: e.target.value })}
               required
             />
-            <select
-              value={task2.status}
-              onChange={(e) => setTask2({ ...task2, status: e.target.value })}
-            >
-              <option value="1">Active</option>
-              <option value="0">Inactive</option>
-            </select>
+             <input 
+                type="text" 
+                placeholder="Image Path (e.g. roasted.jpg)" 
+                value={task2.image} 
+                onChange={(e) => setTask2({ ...task2, image: e.target.value })} 
+            />
+            <input 
+                type="number" 
+                placeholder="Active Status (0 or 1)" 
+                value={task2.status} 
+                onChange={(e) => setTask2({ ...task2, status: e.target.value })}
+                min="0"
+                max="1"
+                required 
+            />
             <button type="submit">Add Product</button>
           </form>
           {msg2 && <div className="result highlight">{msg2}</div>}
@@ -210,7 +257,7 @@ const AdminPage = () => {
         {/* TASK 3: Calculate Tax */}
         <div className="card">
           <h3>
-            <DollarSign size={20} /> Calculate Tax
+            <DollarSign size={20} /> 3. Calculate Tax
           </h3>
           <form onSubmit={handleCalcTax}>
             <input
@@ -235,7 +282,7 @@ const AdminPage = () => {
         {/* TASK 4: Shipping Status */}
         <div className="card">
           <h3>
-            <Truck size={20} /> Update Shipping Status
+            <Truck size={20} /> 4. Update Shipping Status
           </h3>
           <form onSubmit={handleShipStatus}>
             <input
@@ -273,7 +320,7 @@ const AdminPage = () => {
         {/* TASK 5: Add to Basket */}
         <div className="card">
           <h3>
-            <ShoppingBag size={20} /> Manual Basket Add
+            <ShoppingBag size={20} /> 5. Manual Basket Add
           </h3>
           <form onSubmit={handleAddToBasket}>
             <input
@@ -300,7 +347,7 @@ const AdminPage = () => {
               />
               <input
                 type="number"
-                placeholder="Qty"
+                placeholder="Quantity"
                 value={task5.qty}
                 onChange={(e) => setTask5({ ...task5, qty: e.target.value })}
                 required
@@ -330,7 +377,7 @@ const AdminPage = () => {
         {/* TASK 6: Check Sale */}
         <div className="card">
           <h3>
-            <Tag size={20} /> Check Sale Status
+            <Tag size={20} /> 6. Check Sale Status
           </h3>
           <form onSubmit={handleCheckSale}>
             <input
@@ -349,6 +396,64 @@ const AdminPage = () => {
             <button type="submit">Check Sale</button>
           </form>
           {msg6 && <div className="result highlight">{msg6}</div>}
+        </div>
+
+        {/* --- PRODUCT SEARCH & LIST SECTION (Combined per requirement) --- */}
+        <div className="product-search-section">
+          <div className="search-header">
+            <h2>Product Search & List</h2>
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search by Product Name..."
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />
+              <button onClick={handleSearchProduct}>
+                <Search size={18} /> Search
+              </button>
+              <button onClick={fetchProducts} className="btn-secondary">
+                <List size={18} /> Show List
+              </button>
+            </div>
+          </div>
+
+          {showList && (
+            <div className="table-responsive">
+              <table className="product-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.length > 0 ? (
+                    products.map((p) => (
+                      <tr key={p[0]}>
+                        <td>{p[0]}</td>
+                        <td>{p[1]}</td>
+                        <td>{p[2]}</td>
+                        <td>
+                          ${(p[4] !== undefined && p[4] !== null ? Number(p[4]) : 0).toFixed(2)}
+                        </td>
+                        <td>{p[8] === 1 ? "Active" : "Inactive"}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="5" style={{ textAlign: "center" }}>
+                        No products found
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>

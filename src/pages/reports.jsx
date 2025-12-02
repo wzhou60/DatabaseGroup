@@ -63,7 +63,7 @@ const ReportsPage = () => {
           
           {/* DISPLAY RESULT */}
           {stockResult && (
-            <div className="result">
+            <div className="result highlight">
               <strong>Database Result:</strong> {stockResult}
             </div>
           )}
@@ -84,7 +84,7 @@ const ReportsPage = () => {
 
           {/* Result Display */}
           {spendingResult !== null && (
-             <div className ="result"  style={{marginTop: '15px', padding: '10px', backgroundColor: '#e8f5e9', borderLeft: '5px solid #4caf50',color: '#333'}}>
+             <div className ="result highlight" >
                <strong>Total Spent:</strong> ${spendingResult}
              </div>
           )}

@@ -215,4 +215,11 @@ select * from bb_basket;
 -- task 1,2,6 | report 1
 SELECT * FROM bb_product;
 
+-- task 3
+select * from bb_tax;
 
+-- task 4
+select * from bb_basketstatus;
+
+-- task 5 | report 1??
+select * from bb_basketitem;

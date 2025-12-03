@@ -211,8 +211,9 @@ SELECT TOT_PURCH_SF(1) FROM dual;
 -- test stuff (report 2)
 select * from bb_basket;
 
+
 -------------------------------
-------- SELECT CODES
+------- SELECT/TESTING CODES
 -------------------------------
 
 -- task 1,2,6 | report 1

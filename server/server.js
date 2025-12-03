@@ -3,7 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import oracledb from "oracledb";
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,7 +14,7 @@ const dbConfig = {
   user: "COMP214_F25_ers_38",
   password: "password",
   //connectString: "199.212.26.208:1521/SQLD", // remote
-  connectString: "oracle1.centennialcollege.ca:1521/SQLD" // at centennial
+  connectString: "oracle1.centennialcollege.ca:1521/SQLD", // at centennial
 };
 
 // Helper function to execute SQL

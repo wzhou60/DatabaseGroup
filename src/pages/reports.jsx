@@ -7,7 +7,6 @@ const ReportsPage = () => {
   const [basketId, setBasketId] = useState("");
   const [shopperId, setShopperId] = useState("");
 
-  // New state for results
   const [stockResult, setStockResult] = useState("");
   const [spendingResult, setSpendingResult] = useState(null);
 
@@ -81,7 +80,6 @@ const ReportsPage = () => {
 
         <div className="report-card">
           <h2>Shopper Spending</h2>
-          
 
           <form
             onSubmit={(e) => {

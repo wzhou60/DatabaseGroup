@@ -8,11 +8,11 @@ const HomePage = ({ cart, setCart }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // The default image requested by the user
+  // The default image
   const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1524350876685-274059332603?w=400";
 
   useEffect(() => {
-    let isMounted = true; // Prevents state updates if component unmounts (fixes some flashing)
+    let isMounted = true;
 
     const fetchProducts = async () => {
       try {
@@ -75,7 +75,7 @@ const HomePage = ({ cart, setCart }) => {
     // If database value is null, empty, or undefined, use default image
     if (!img || img.trim() === "") return DEFAULT_IMAGE;
 
-    // If it's a full URL (http/https), use it
+    // If it's a URL (http/https), use it
     if (img.startsWith("http")) return img;
 
     return `/${img}`;
@@ -112,7 +112,6 @@ const HomePage = ({ cart, setCart }) => {
             <img
               src={getImageSrc(product.image)}
               alt={product.name}
-              // Prevent flashing by handling error once and removing handler
               onError={(e) => {
                 if (e.currentTarget.src !== DEFAULT_IMAGE) {
                   e.currentTarget.src = DEFAULT_IMAGE;

@@ -56,6 +56,7 @@ const AdminPage = () => {
       const data = await res.json();
       setMsg2(data.message || data.error);
       fetchProducts();
+      setTask2({ name: "", desc: "", image: "", price: "", status: "" });
     } catch (err) {
       setMsg2("Error connecting to server");
     }
@@ -161,6 +162,9 @@ const AdminPage = () => {
       });
       const data = await res.json();
       setMsg5(data.message || data.error);
+      fetchProducts();
+      setTask5 ({ basketId: "", prodId: "", price: "", qty: "", size: "", form: "" });
+
     } catch (err) {
       setMsg5("Error adding item");
     }
